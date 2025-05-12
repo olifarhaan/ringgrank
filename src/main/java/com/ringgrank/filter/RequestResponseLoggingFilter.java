@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -16,10 +17,17 @@ import jakarta.servlet.http.HttpServletResponse;
 public class RequestResponseLoggingFilter extends OncePerRequestFilter {
     private static final Logger logger = LoggerFactory.getLogger(RequestResponseLoggingFilter.class);
 
+    @Value("${logging.enabled:true}")
+    private boolean isEnabled;
+
     @Override
     protected void doFilterInternal(@SuppressWarnings("null") HttpServletRequest request,
             @SuppressWarnings("null") HttpServletResponse response, @SuppressWarnings("null") FilterChain filterChain)
             throws ServletException, IOException {
+        if (!isEnabled) {
+            filterChain.doFilter(request, response);
+            return;
+        }
         long startTime = System.currentTimeMillis();
         StringBuilder logMessage = new StringBuilder();
 

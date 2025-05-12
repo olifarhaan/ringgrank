@@ -1,5 +1,6 @@
 package com.ringgrank.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,19 @@ public class LeaderboardQueryService {
         GameLeaderboardSet gameSet = getGameLeaderboardSet(gameId);
         Leaderboard leaderboard = gameSet.getLeaderboard(window);
 
-        return leaderboard.getTopK(limit).stream()
-                .map(entry -> new LeaderboardEntryResponse(
-                        entry.userId(),
-                        entry.score(),
-                        entry.timestamp(),
-                        leaderboard.getUserRank(entry.userId())))
-                .toList();
+        List<ScoreEntry> topK = leaderboard.getTopK(limit);
+        int rank = 1;
+
+        List<LeaderboardEntryResponse> responses = new ArrayList<>();
+        for (ScoreEntry entry : topK) {
+            responses.add(new LeaderboardEntryResponse(
+                    entry.userId(),
+                    entry.score(),
+                    entry.timestamp(),
+                    rank));
+            rank++;
+        }
+        return responses;
     }
 
     public UserRankResponse getUserRank(long gameId, long userId, String window) {
