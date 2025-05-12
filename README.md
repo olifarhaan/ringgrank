@@ -8,10 +8,14 @@ This document outlines the architecture, features, setup, and design decisions m
 ## 2.0 Architecture Overview
 The service is a Java Spring Boot application designed to operate as a single node, handling score ingestion and leaderboard queries with high throughput and low latency. The core of the service relies on an in-memory data store for real-time processing, with a persistence mechanism based on Write-Ahead Logging (WAL) and periodic snapshots to ensure data durability and fast recovery.
 
-Please refer to the link below for more details.
+> [!IMPORTANT]  
+> For detailed architectural decisions, technical specifications, and implementation details, please refer to my comprehensive design document: [DESIGN_DOCUMENT.md](DESIGN_DOCUMENT.md)
 
-[DESIGN_DOCUMENT.md](DESIGN_DOCUMENT.md)
 
+
+This document contains critical information about the system's architecture, scalability considerations, data structures, and performance optimizations.
+
+Swagger UI is available at `http://localhost:8080/swagger-ui/index.html`
 
 ## 3.0 Local Setup Instructions
 
