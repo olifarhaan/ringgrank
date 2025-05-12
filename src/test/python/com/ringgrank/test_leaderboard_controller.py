@@ -179,14 +179,12 @@ async def test_score_ingestion_performance():
 
     end_time = time.time()
     duration = end_time - start_time
-    rps = successful_requests / duration if duration > 0 else 0
     avg_latency = sum(latencies) / len(latencies) if latencies else 0
 
     print(f"\n--- Score Ingestion Results ---")
     print(f"Total time: {duration:.2f}s")
     print(f"Successful requests: {successful_requests}")
     print(f"Failed requests: {failed_requests}")
-    print(f"Requests per second (RPS): {rps:.2f}")
     print(f"Average latency: {int(avg_latency * 1000)}ms")
     assert failed_requests == 0
 
@@ -226,7 +224,6 @@ async def test_get_top_k_leaders_performance():
 
     end_time = time.time()
     duration = end_time - start_time
-    rps = successful_requests / duration if duration > 0 else 0
     avg_latency = sum(latencies) / len(latencies) if latencies else 0
 
     assert failed_requests == 0
@@ -235,7 +232,6 @@ async def test_get_top_k_leaders_performance():
     print(f"Total time: {duration:.2f}s")
     print(f"Successful requests: {successful_requests}")
     print(f"Failed requests: {failed_requests}")
-    print(f"Requests per second (RPS): {rps:.2f}")
     print(f"Average latency: {int(avg_latency * 1000)}ms")
 
 
@@ -275,12 +271,10 @@ async def test_get_player_rank_performance():
 
     end_time = time.time()
     duration = end_time - start_time
-    rps = successful_requests / duration if duration > 0 else 0
     avg_latency = sum(latencies) / len(latencies) if latencies else 0
 
     print(f"\n--- Player Rank Read Results ---")
     print(f"Total time: {duration:.2f}s")
     print(f"Successful requests: {successful_requests}")
     print(f"Failed requests: {failed_requests}")
-    print(f"Requests per second (RPS): {rps:.2f}")
     print(f"Average latency: {int(avg_latency * 1000)}ms")
